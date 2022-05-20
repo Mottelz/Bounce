@@ -13,15 +13,6 @@ namespace Bounce
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             }
 
-            if (Input.GetKeyDown("h"))
-            {
-                GUIController.Instance.ToggleHelp();
-            }
-
-            if (Input.GetButtonDown("Fire1"))
-            {
-                GameController.Instance.player.Fire = true;
-            }
 
             if (Input.GetKeyDown("s"))
             {
@@ -33,9 +24,24 @@ namespace Bounce
                 SceneManager.LoadScene("Scenes/Precision");
             }
             
-            float vertical = Input.GetAxis("Vertical");
-            float horizontal = Input.GetAxis("Horizontal");
-            GameController.Instance.player.UpdateForce(vertical, horizontal);
+            
+
+            if (GameController.Instance)
+            {
+                float vertical = Input.GetAxis("Vertical");
+                float horizontal = Input.GetAxis("Horizontal");
+                GameController.Instance.player.UpdateForce(vertical, horizontal);
+                
+                if (Input.GetKeyDown("h"))
+                {
+                    GUIController.Instance.ToggleHelp();
+                }
+
+                if (Input.GetButtonDown("Fire1"))
+                {
+                    GameController.Instance.player.Fire = true;
+                }
+            }
         }
     }
 }
