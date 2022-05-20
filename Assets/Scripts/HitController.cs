@@ -19,6 +19,7 @@ namespace Bounce
         public int startingShots = 5;
         public float stopTolerance = 0.005f;
         public float startTime = 120.0f;
+        public float timeMultiplier = 1.0f;
 
         private void Awake()
         {
@@ -98,7 +99,7 @@ namespace Bounce
         {
             if (_time > 0f)
             {
-                _time += value * 3f;
+                _time += value * timeMultiplier;
                 return true;
             }
             return false;

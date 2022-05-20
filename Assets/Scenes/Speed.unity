@@ -191,7 +191,14 @@ MonoBehaviour:
     R: Restart Game
 
 
-    H: To open and close this menu'
+    S: Speed Mode
+
+
+    P: Precision Mode
+
+
+    H:
+    To open and close this menu'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 79459efec17a4d00a321bdcc27bbc385, type: 2}
@@ -1947,8 +1954,12 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 3080434561863574303, guid: e83991d693672c54fb5ca6507ade9630, type: 3}
+      propertyPath: maxForce
+      value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 3080434561863574303, guid: e83991d693672c54fb5ca6507ade9630, type: 3}
       propertyPath: sliderSpeed
-      value: 20
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 3080434561863574303, guid: e83991d693672c54fb5ca6507ade9630, type: 3}
       propertyPath: forceDisplay
@@ -1958,5 +1969,9 @@ PrefabInstance:
       propertyPath: shotsDisplay
       value: 
       objectReference: {fileID: 1808235885}
+    - target: {fileID: 3080434561863574303, guid: e83991d693672c54fb5ca6507ade9630, type: 3}
+      propertyPath: startingShots
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e83991d693672c54fb5ca6507ade9630, type: 3}

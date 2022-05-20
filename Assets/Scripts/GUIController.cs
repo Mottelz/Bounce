@@ -34,8 +34,15 @@ namespace Bounce
         
         public void UpdateLife(float lifeRemaining)
         {
-            string lifeType = GameController.Instance.mode == GameMode.Speed ? "Time" : "Shots";   
-            lifeText.text = $"{lifeType} Left: {lifeRemaining:0.00}";
+            switch (GameController.Instance.mode)
+            {
+                case GameMode.Precision:
+                    lifeText.text = $"Shots Left: {lifeRemaining:0}";
+                    break;
+                case GameMode.Speed:
+                    lifeText.text = $"Time Left: {lifeRemaining:0.00}";
+                    break;
+            }
         }
 
         public void UpdateForce(float horizontal, float vertical)
