@@ -1,5 +1,5 @@
+using System;
 using UnityEngine;
-using TMPro;
 
 namespace Bounce
 {
@@ -12,19 +12,44 @@ namespace Bounce
         private bool _stopped;
         private int _shotsRemaining;
         private float _stopToleranceSqr;
+        private float _time;
 
         public float maxForce = 5f;
         public float sliderSpeed = 1f;
         public int startingShots = 5;
         public float stopTolerance = 0.005f;
+        public float startTime = 120.0f;
 
         private void Awake()
         {
             _stopToleranceSqr = stopTolerance * stopTolerance;
             _rigidbody = gameObject.GetComponent<Rigidbody>();
-            _shotsRemaining = startingShots;
+
+            switch (GameController.Instance.mode)
+            {
+                case GameMode.Precision:
+                    _shotsRemaining = startingShots;
+                    GUIController.Instance.UpdateLife(_shotsRemaining);
+                    break;
+                case GameMode.Speed:
+                    _time = startTime;
+                    GUIController.Instance.UpdateLife(_time);
+                    break;
+                default:
+                    break;
+            }
+            
             GUIController.Instance.UpdateForce(_horizontalForce, _verticalForce);
-            GUIController.Instance.UpdateShots(_shotsRemaining);
+            
+        }
+
+        private void Update()
+        {
+            if (_time > 0f)
+            {
+                _time -= Time.deltaTime;
+                GUIController.Instance.UpdateLife(_time);
+            }
         }
 
         private void FixedUpdate()
@@ -35,12 +60,12 @@ namespace Bounce
                 _rigidbody.velocity = Vector3.zero;
             }
 
-            if (Fire && _shotsRemaining > 0)
+            if (Fire && (_shotsRemaining > 0 || _time > 0))
             {
                 Fire = false;
                 _stopped = false;
                 _shotsRemaining--;
-                GUIController.Instance.UpdateShots(_shotsRemaining);
+                GUIController.Instance.UpdateLife(_shotsRemaining);
                 Vector3 force = new Vector3(_horizontalForce, 0f, _verticalForce);
                 _rigidbody.velocity = force;
                 _verticalForce = 0f;
@@ -48,17 +73,37 @@ namespace Bounce
             }
         }
 
-        public bool AddShots(int amount)
+        private bool PrecisionPickup(int amount)
         {
             if (_stopped)
             {
                 _shotsRemaining += amount;
-                GUIController.Instance.UpdateShots(_shotsRemaining);
+                GUIController.Instance.UpdateLife(_shotsRemaining);
                 return true;
             }
             return false;
         }
-        
+
+        public bool Pickup(int value)
+        {
+            return GameController.Instance.mode switch
+            {
+                GameMode.Precision => PrecisionPickup(value),
+                GameMode.Speed => SpeedPickup(value),
+                _ => false
+            };
+        }
+
+        private bool SpeedPickup(int value)
+        {
+            if (_time > 0f)
+            {
+                _time += value * 3f;
+                return true;
+            }
+            return false;
+        }
+
 
         public void UpdateForce(float vertical, float horizontal)
         {

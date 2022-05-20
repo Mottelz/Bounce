@@ -9,7 +9,7 @@ namespace Bounce
         
         public TMP_Text forceText;
         public TMP_Text helpText;
-        public TMP_Text shotsText;
+        public TMP_Text lifeText;
         public TMP_Text scoreText;
         
         private int _score = 0;
@@ -32,9 +32,10 @@ namespace Bounce
             scoreText.text = $"Score: {_score}";
         }
         
-        public void UpdateShots(int shotsRemaining)
+        public void UpdateLife(float lifeRemaining)
         {
-            shotsText.text = $"Shots Left: {shotsRemaining}";
+            string lifeType = GameController.Instance.mode == GameMode.Speed ? "Time" : "Shots";   
+            lifeText.text = $"{lifeType} Left: {lifeRemaining:0.00}";
         }
 
         public void UpdateForce(float horizontal, float vertical)

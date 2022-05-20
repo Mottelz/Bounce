@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3080434561863574303}
   - component: {fileID: 3080434561863574300}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: PercisionPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

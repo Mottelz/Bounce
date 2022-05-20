@@ -22,6 +22,16 @@ namespace Bounce
             {
                 GameController.Instance.player.Fire = true;
             }
+
+            if (Input.GetKeyDown("s"))
+            {
+                SceneManager.LoadScene("Scenes/Speed");
+            }
+
+            if (Input.GetKeyDown("p"))
+            {
+                SceneManager.LoadScene("Scenes/Precision");
+            }
             
             float vertical = Input.GetAxis("Vertical");
             float horizontal = Input.GetAxis("Horizontal");

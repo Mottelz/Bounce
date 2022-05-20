@@ -1,18 +1,24 @@
-using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Bounce
 {
+    public enum GameMode
+    {
+        Speed,
+        Precision
+    }
+
     public class GameController : MonoBehaviour
     {
         public static GameController Instance { get; private set; }
 
         public GameObject target;
-        public float xSize = 5.0f;
-        public float ySize = 0.0f;
-        public float zSize = 5.0f;
+        public float xSize = 18.0f;
+        public float ySize = -0.75f;
+        public float zSize = 8.0f;
         public HitController player;
+        public GameMode mode;
         
         private void Awake()
         {
